@@ -41,6 +41,7 @@ export const NewIdea = () => {
                     <div>
                         <div style={{ "flex": "0.15" }}>
                             <input id={`mainType`} type="text" placeholder="main type" name="mainType" onChange={changeVal} />
+                            
                         </div>
                     </div>
 
