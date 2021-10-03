@@ -1,12 +1,17 @@
 import { useForm } from 'react-hook-form';
+import { getSearchDetail } from '../../api/search/search.api';
 import '../../common.css';
 import './searchWord.css';
 
 export const SearchWordForm = (
-     {changeSections, sections} : {changeSections:any, sections:any}) => {
+     {changeSections, sections, setNodeChildren, nodeChildren} : {changeSections:any, sections:any, setNodeChildren:any, nodeChildren:any}) => {
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
-    const onSubmit = (data:any) => {
+    const onSubmit = async (data:any) => {
         changeSections([...sections, data.searchWord]);
+        let res = await getSearchDetail(`${data.searchWord}`);
+        let json = await res.json();
+        console.log(json);
+        setNodeChildren([...nodeChildren, ...json.result]);
         reset({"searchWord": ""});
     };
 

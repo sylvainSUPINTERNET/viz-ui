@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import './newIdea.css'
 import { FcLink } from 'react-icons/fc';
 import { AiOutlineSubnode } from "react-icons/ai"
+import { INode } from '../../api/node/INode';
+import { INodeCreate } from '../../api/node/INodeCreate';
+import { createNode } from '../../api/node/node.api';
 export const NewIdea = () => {
 
     type Field = {
@@ -16,10 +19,18 @@ export const NewIdea = () => {
 
     }, [fields]);
 
-    const handleSubmit = (ev: any) => {
+    const handleSubmit = async (ev: any) => {
         ev.preventDefault();
+        if ( values ) {
+            try {
+                const res = await createNode(values, "nodes");
+                const jsonData = await res.json();
+            } catch (e) {
+                console.log(e);
+            }
 
-        console.log(values);
+        }
+
     };
 
     const addField = (ev: any) => {
@@ -30,6 +41,7 @@ export const NewIdea = () => {
 
     const changeVal = (ev:any) => {
         values[ev.target.id] = ev.target.value;
+        setValues(values);
     }
 
     return (
@@ -66,7 +78,7 @@ export const NewIdea = () => {
                 </div>
 
                 <div>
-                    <input className="btn btn-success mt-3" type="submit" value="Save" />
+                    <input className="btn btn-success mt-3" type="submit" value="Save"/>
                 </div>
 
             </form>

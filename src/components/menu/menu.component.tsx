@@ -7,6 +7,9 @@ import {
 import { Home } from "../home/home.component";
 import '../../common.css';
 import { useState, useEffect } from "react";
+import { Search } from "../search/search";
+import { Main } from "../main/main.component";
+import { Header } from "../header/header";
 
 export const Menu = ({ sections }: {sections:string[]} ) => {
 
@@ -30,11 +33,15 @@ export const Menu = ({ sections }: {sections:string[]} ) => {
                     </ol>
                 </nav>
                 <Switch>
-                    <Route path="/">
-                        <Home changeSections={setSectionsMenu} currentSections={sectionMenu}/>
+                    <Route exact path="/">
+                        <Header/>
+                        <Main/>
                     </Route>
-                    <Route path="/search/{word}">
+                    {/* <Route exact path="/">
                         <Home changeSections={setSectionsMenu} currentSections={sectionMenu}/>
+                    </Route> */}
+                    <Route exact path="/search/:word">
+                        <Search/>
                     </Route>
                 </Switch>
             </div>
